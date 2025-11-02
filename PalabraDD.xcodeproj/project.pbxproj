@@ -24,6 +24,8 @@
 		8B9645F32EB7088C0076E2F2 /* PalabraWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8B9645DF2EB708880076E2F2 /* PalabraWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8B9645FB2EB70A6B0076E2F2 /* words_v1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B9645FA2EB70A6A0076E2F2 /* words_v1.json */; };
 		8B9645FC2EB70A930076E2F2 /* words_v1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B9645FA2EB70A6A0076E2F2 /* words_v1.json */; };
+		8B9645FF2EB70CB80076E2F2 /* WordEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9645FE2EB70CB80076E2F2 /* WordEntry.swift */; };
+		8B9646012EB70CFB0076E2F2 /* WordBundleLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646002EB70CFB0076E2F2 /* WordBundleLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,8 @@
 		8B9645EE2EB7088C0076E2F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B9645F02EB7088C0076E2F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B9645FA2EB70A6A0076E2F2 /* words_v1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words_v1.json; sourceTree = "<group>"; };
+		8B9645FE2EB70CB80076E2F2 /* WordEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordEntry.swift; sourceTree = "<group>"; };
+		8B9646002EB70CFB0076E2F2 /* WordBundleLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordBundleLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +210,7 @@
 		8B9645F82EB709460076E2F2 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				8B9645FD2EB70CA50076E2F2 /* Models */,
 				8B9645F92EB70A2F0076E2F2 /* Data */,
 			);
 			path = Shared;
@@ -215,8 +220,17 @@
 			isa = PBXGroup;
 			children = (
 				8B9645FA2EB70A6A0076E2F2 /* words_v1.json */,
+				8B9646002EB70CFB0076E2F2 /* WordBundleLoader.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		8B9645FD2EB70CA50076E2F2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8B9645FE2EB70CB80076E2F2 /* WordEntry.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,6 +398,8 @@
 			files = (
 				8B9645B42EB704600076E2F2 /* ContentView.swift in Sources */,
 				8B9645B22EB704600076E2F2 /* PalabraDDApp.swift in Sources */,
+				8B9646012EB70CFB0076E2F2 /* WordBundleLoader.swift in Sources */,
+				8B9645FF2EB70CB80076E2F2 /* WordEntry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
