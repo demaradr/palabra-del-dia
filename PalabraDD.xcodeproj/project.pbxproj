@@ -14,6 +14,16 @@
 		8B9645C32EB704630076E2F2 /* PalabraDDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9645C22EB704630076E2F2 /* PalabraDDTests.swift */; };
 		8B9645CD2EB704630076E2F2 /* PalabraDDUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9645CC2EB704630076E2F2 /* PalabraDDUITests.swift */; };
 		8B9645CF2EB704630076E2F2 /* PalabraDDUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9645CE2EB704630076E2F2 /* PalabraDDUITestsLaunchTests.swift */; };
+		8B9645E22EB708890076E2F2 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B9645E12EB708880076E2F2 /* WidgetKit.framework */; };
+		8B9645E42EB708890076E2F2 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B9645E32EB708890076E2F2 /* SwiftUI.framework */; };
+		8B9645E72EB708890076E2F2 /* PalabraWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9645E62EB708890076E2F2 /* PalabraWidgetBundle.swift */; };
+		8B9645E92EB708890076E2F2 /* PalabraWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9645E82EB708890076E2F2 /* PalabraWidgetLiveActivity.swift */; };
+		8B9645EB2EB708890076E2F2 /* PalabraWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9645EA2EB708890076E2F2 /* PalabraWidget.swift */; };
+		8B9645ED2EB708890076E2F2 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9645EC2EB708890076E2F2 /* AppIntent.swift */; };
+		8B9645EF2EB7088C0076E2F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B9645EE2EB7088C0076E2F2 /* Assets.xcassets */; };
+		8B9645F32EB7088C0076E2F2 /* PalabraWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8B9645DF2EB708880076E2F2 /* PalabraWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8B9645FB2EB70A6B0076E2F2 /* words_v1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B9645FA2EB70A6A0076E2F2 /* words_v1.json */; };
+		8B9645FC2EB70A930076E2F2 /* words_v1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B9645FA2EB70A6A0076E2F2 /* words_v1.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,7 +41,28 @@
 			remoteGlobalIDString = 8B9645AD2EB704600076E2F2;
 			remoteInfo = PalabraDD;
 		};
+		8B9645F12EB7088C0076E2F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8B9645A62EB704600076E2F2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8B9645DE2EB708880076E2F2;
+			remoteInfo = PalabraWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8B9645F42EB7088C0076E2F2 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8B9645F32EB7088C0076E2F2 /* PalabraWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8B9645AE2EB704600076E2F2 /* PalabraDD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PalabraDD.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +75,16 @@
 		8B9645C82EB704630076E2F2 /* PalabraDDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PalabraDDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B9645CC2EB704630076E2F2 /* PalabraDDUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PalabraDDUITests.swift; sourceTree = "<group>"; };
 		8B9645CE2EB704630076E2F2 /* PalabraDDUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PalabraDDUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8B9645DF2EB708880076E2F2 /* PalabraWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PalabraWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B9645E12EB708880076E2F2 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		8B9645E32EB708890076E2F2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		8B9645E62EB708890076E2F2 /* PalabraWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PalabraWidgetBundle.swift; sourceTree = "<group>"; };
+		8B9645E82EB708890076E2F2 /* PalabraWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PalabraWidgetLiveActivity.swift; sourceTree = "<group>"; };
+		8B9645EA2EB708890076E2F2 /* PalabraWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PalabraWidget.swift; sourceTree = "<group>"; };
+		8B9645EC2EB708890076E2F2 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		8B9645EE2EB7088C0076E2F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8B9645F02EB7088C0076E2F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B9645FA2EB70A6A0076E2F2 /* words_v1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words_v1.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,15 +109,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8B9645DC2EB708880076E2F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B9645E42EB708890076E2F2 /* SwiftUI.framework in Frameworks */,
+				8B9645E22EB708890076E2F2 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		8B9645A52EB704600076E2F2 = {
 			isa = PBXGroup;
 			children = (
+				8B9645F82EB709460076E2F2 /* Shared */,
 				8B9645B02EB704600076E2F2 /* PalabraDD */,
 				8B9645C12EB704630076E2F2 /* PalabraDDTests */,
 				8B9645CB2EB704630076E2F2 /* PalabraDDUITests */,
+				8B9645E52EB708890076E2F2 /* PalabraWidget */,
+				8B9645E02EB708880076E2F2 /* Frameworks */,
 				8B9645AF2EB704600076E2F2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,6 +140,7 @@
 				8B9645AE2EB704600076E2F2 /* PalabraDD.app */,
 				8B9645BE2EB704630076E2F2 /* PalabraDDTests.xctest */,
 				8B9645C82EB704630076E2F2 /* PalabraDDUITests.xctest */,
+				8B9645DF2EB708880076E2F2 /* PalabraWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,6 +181,44 @@
 			path = PalabraDDUITests;
 			sourceTree = "<group>";
 		};
+		8B9645E02EB708880076E2F2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8B9645E12EB708880076E2F2 /* WidgetKit.framework */,
+				8B9645E32EB708890076E2F2 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8B9645E52EB708890076E2F2 /* PalabraWidget */ = {
+			isa = PBXGroup;
+			children = (
+				8B9645E62EB708890076E2F2 /* PalabraWidgetBundle.swift */,
+				8B9645E82EB708890076E2F2 /* PalabraWidgetLiveActivity.swift */,
+				8B9645EA2EB708890076E2F2 /* PalabraWidget.swift */,
+				8B9645EC2EB708890076E2F2 /* AppIntent.swift */,
+				8B9645EE2EB7088C0076E2F2 /* Assets.xcassets */,
+				8B9645F02EB7088C0076E2F2 /* Info.plist */,
+			);
+			path = PalabraWidget;
+			sourceTree = "<group>";
+		};
+		8B9645F82EB709460076E2F2 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				8B9645F92EB70A2F0076E2F2 /* Data */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		8B9645F92EB70A2F0076E2F2 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				8B9645FA2EB70A6A0076E2F2 /* words_v1.json */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -137,10 +229,12 @@
 				8B9645AA2EB704600076E2F2 /* Sources */,
 				8B9645AB2EB704600076E2F2 /* Frameworks */,
 				8B9645AC2EB704600076E2F2 /* Resources */,
+				8B9645F42EB7088C0076E2F2 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8B9645F22EB7088C0076E2F2 /* PBXTargetDependency */,
 			);
 			name = PalabraDD;
 			productName = PalabraDD;
@@ -183,6 +277,23 @@
 			productReference = 8B9645C82EB704630076E2F2 /* PalabraDDUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		8B9645DE2EB708880076E2F2 /* PalabraWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8B9645F72EB7088C0076E2F2 /* Build configuration list for PBXNativeTarget "PalabraWidgetExtension" */;
+			buildPhases = (
+				8B9645DB2EB708880076E2F2 /* Sources */,
+				8B9645DC2EB708880076E2F2 /* Frameworks */,
+				8B9645DD2EB708880076E2F2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PalabraWidgetExtension;
+			productName = PalabraWidgetExtension;
+			productReference = 8B9645DF2EB708880076E2F2 /* PalabraWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -204,6 +315,9 @@
 						CreatedOnToolsVersion = 15.0.1;
 						TestTargetID = 8B9645AD2EB704600076E2F2;
 					};
+					8B9645DE2EB708880076E2F2 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
 				};
 			};
 			buildConfigurationList = 8B9645A92EB704600076E2F2 /* Build configuration list for PBXProject "PalabraDD" */;
@@ -222,6 +336,7 @@
 				8B9645AD2EB704600076E2F2 /* PalabraDD */,
 				8B9645BD2EB704630076E2F2 /* PalabraDDTests */,
 				8B9645C72EB704630076E2F2 /* PalabraDDUITests */,
+				8B9645DE2EB708880076E2F2 /* PalabraWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -231,6 +346,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B9645FB2EB70A6B0076E2F2 /* words_v1.json in Resources */,
 				8B9645B92EB704630076E2F2 /* Preview Assets.xcassets in Resources */,
 				8B9645B62EB704630076E2F2 /* Assets.xcassets in Resources */,
 			);
@@ -247,6 +363,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B9645DD2EB708880076E2F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B9645FC2EB70A930076E2F2 /* words_v1.json in Resources */,
+				8B9645EF2EB7088C0076E2F2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +404,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8B9645DB2EB708880076E2F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B9645E92EB708890076E2F2 /* PalabraWidgetLiveActivity.swift in Sources */,
+				8B9645ED2EB708890076E2F2 /* AppIntent.swift in Sources */,
+				8B9645EB2EB708890076E2F2 /* PalabraWidget.swift in Sources */,
+				8B9645E72EB708890076E2F2 /* PalabraWidgetBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -291,6 +427,11 @@
 			isa = PBXTargetDependency;
 			target = 8B9645AD2EB704600076E2F2 /* PalabraDD */;
 			targetProxy = 8B9645C92EB704630076E2F2 /* PBXContainerItemProxy */;
+		};
+		8B9645F22EB7088C0076E2F2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8B9645DE2EB708880076E2F2 /* PalabraWidgetExtension */;
+			targetProxy = 8B9645F12EB7088C0076E2F2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -417,6 +558,7 @@
 		8B9645D32EB704630076E2F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -445,6 +587,7 @@
 		8B9645D42EB704630076E2F2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -542,6 +685,58 @@
 			};
 			name = Release;
 		};
+		8B9645F52EB7088C0076E2F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PalabraWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PalabraWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Demartin.PalabraDD.PalabraWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8B9645F62EB7088C0076E2F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PalabraWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PalabraWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Demartin.PalabraDD.PalabraWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -577,6 +772,15 @@
 			buildConfigurations = (
 				8B9645D92EB704630076E2F2 /* Debug */,
 				8B9645DA2EB704630076E2F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8B9645F72EB7088C0076E2F2 /* Build configuration list for PBXNativeTarget "PalabraWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B9645F52EB7088C0076E2F2 /* Debug */,
+				8B9645F62EB7088C0076E2F2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
