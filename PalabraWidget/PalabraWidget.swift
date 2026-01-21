@@ -10,11 +10,11 @@ import SwiftUI
 
 struct Provider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationAppIntent())
+        SimpleEntry(date: Date(), configuration: ConfigurationAppIntent(), wordID: SharedWordStore.shared.loadCurrentWordID())
     }
 
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: configuration)
+        SimpleEntry(date: Date(), configuration: configuration, wordID: SharedWordStore.shared.loadCurrentWordID())
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
@@ -22,9 +22,10 @@ struct Provider: AppIntentTimelineProvider {
 
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
+        let currentWordID = SharedWordStore.shared.loadCurrentWordID()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration)
+            let entry = SimpleEntry(date: entryDate, configuration: configuration, wordID: currentWordID)
             entries.append(entry)
         }
 
@@ -35,6 +36,7 @@ struct Provider: AppIntentTimelineProvider {
 struct SimpleEntry: TimelineEntry {
     let date: Date
     let configuration: ConfigurationAppIntent
+    let wordID: String?
 }
 
 struct PalabraWidgetEntryView : View {
@@ -47,6 +49,15 @@ struct PalabraWidgetEntryView : View {
 
             Text("Favorite Emoji:")
             Text(entry.configuration.favoriteEmoji)
+
+            Text("Word ID:")
+            Text(entry.wordID ?? "None")
+
+            if !SharedWordStore.shared.isAppGroupAvailable {
+                Text("App Group unavailable")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            }
         }
     }
 }
@@ -80,6 +91,6 @@ extension ConfigurationAppIntent {
 #Preview(as: .systemSmall) {
     PalabraWidget()
 } timeline: {
-    SimpleEntry(date: .now, configuration: .smiley)
-    SimpleEntry(date: .now, configuration: .starEyes)
+    SimpleEntry(date: .now, configuration: .smiley, wordID: "hablar")
+    SimpleEntry(date: .now, configuration: .starEyes, wordID: "casa")
 }

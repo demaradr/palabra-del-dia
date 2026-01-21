@@ -11,9 +11,9 @@ final class BundledWordSource {
     private let allWords: [WordEntry]
     private var seenIDs: Set<String>
 
-    init(loader: () throws -> [WordEntry] = WordBundleLoader.load) throws {
+    init(seenIDs: Set<String> = [], loader: () throws -> [WordEntry] = WordBundleLoader.load) throws {
         self.allWords = try loader()
-        self.seenIDs = []
+        self.seenIDs = seenIDs
     }
 
     func nextWord() -> WordEntry? {

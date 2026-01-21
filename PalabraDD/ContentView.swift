@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct ContentView: View {
     // When true, we show mock data and skip loading from disk (great for Previews)
@@ -50,10 +51,14 @@ struct ContentView: View {
             }
 
             do {
-                let source = try BundledWordSource()
+                let store = SharedWordStore.shared
+                let source = try BundledWordSource(seenIDs: Set(store.loadSeenWordIDs()))
                 if let word = source.nextWord() {
                     print("Selected word:", word.spanish, "-", word.english)
                     firstWord = word
+                    store.saveCurrentWordID(word.id)
+                    store.markSeen(word.id)
+                    WidgetCenter.shared.reloadAllTimelines()
                     status = "Loaded word"
                 } else {
                     status = "No words found"

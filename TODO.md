@@ -78,11 +78,11 @@ Specified by the user. EXAMPLE: User chooses - 5 words a day between 7am and 9pm
 ---
 
 ## Epic 4 — Persistence & Shared State
-- [ ] Persist data using `UserDefaults` with App Group
+- [x] Persist data using `UserDefaults` with App Group
   - seen word IDs
   - today’s word schedule
   - current word ID
-- [ ] Widgets must read from the same shared state
+- [x] Widgets must read from the same shared state
 
 **Acceptance Criteria**
 - Seen words persist across app launches
