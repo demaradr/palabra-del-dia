@@ -59,6 +59,7 @@ struct PalabraWidget: Widget {
             PalabraWidgetEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .accessoryInline, .accessoryRectangular])
     }
 }
 

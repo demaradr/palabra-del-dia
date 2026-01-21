@@ -34,10 +34,10 @@ Specified by the user. EXAMPLE: User chooses - 5 words a day between 7am and 9pm
 # TODO BACKLOG
 
 ## Epic 1 — Project & Targets
-- [ ] Create SwiftUI iOS App target
-- [ ] Add Widget Extension target
-- [ ] Enable Lock Screen widgets (AccessoryInline, AccessoryRectangular)
-- [ ] Enable App Group for shared storage (app + widget)
+- [x] Create SwiftUI iOS App target
+- [x] Add Widget Extension target
+- [x] Enable Lock Screen widgets (AccessoryInline, AccessoryRectangular)
+- [x] Enable App Group for shared storage (app + widget)
 
 **Acceptance Criteria**
 - App builds and runs
