@@ -23,11 +23,11 @@ struct ContentView: View {
                 .foregroundStyle(.tint)
 
             // Title / status
-            Text(firstWord?.lemma ?? "Hello, Palabrify!")
+            Text(firstWord?.spanish ?? "Hello, Palabrify!")
                 .font(.title2).bold()
 
             if let w = firstWord {
-                Text(w.translation_en)
+                Text(w.english)
                     .foregroundStyle(.secondary)
             } else {
                 Text(status)
@@ -41,13 +41,9 @@ struct ContentView: View {
                 // Lightweight mock so the preview shows something instantly
                 firstWord = WordEntry(
                     id: "hablar",
-                    lemma: "hablar",
-                    pos: "verb",
-                    region: "es-ES",
-                    translation_en: "to speak; to talk",
-                    definition_es: "Comunicar ideas mediante palabras.",
-                    examples: [Example(es: "Quiero hablar contigo.", en: "I want to talk with you.")],
-                    frequency_rank: 512
+                    spanish: "hablar",
+                    english: "to speak; to talk",
+                    examples: [ExampleSentence(spanish: "Quiero hablar contigo.", english: "I want to talk with you.")]
                 )
                 status = "Preview (mock data)"
                 return
@@ -57,7 +53,7 @@ struct ContentView: View {
                 let words = try WordBundleLoader.load()
                 print("Loaded words: \(words.count)")
                 if let first = words.first {
-                    print("First word:", first.lemma, "-", first.translation_en)
+                    print("First word:", first.spanish, "-", first.english)
                 }
                 firstWord = words.first
                 status = "Loaded \(words.count) words"

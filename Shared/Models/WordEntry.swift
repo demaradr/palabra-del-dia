@@ -7,18 +7,14 @@
 
 import Foundation
 
-struct Example: Codable, Hashable {
-    let es: String
-    let en: String?
+struct ExampleSentence: Codable, Hashable {
+    let spanish: String
+    let english: String
 }
 
 struct WordEntry: Codable, Identifiable, Hashable {
     let id: String
-    let lemma: String
-    let pos: String
-    let region: String
-    let translation_en: String
-    let definition_es: String
-    let examples: [Example]
-    let frequency_rank: Int?
+    let spanish: String
+    let english: String
+    let examples: [ExampleSentence]
 }

@@ -47,12 +47,12 @@ Specified by the user. EXAMPLE: User chooses - 5 words a day between 7am and 9pm
 ---
 
 ## Epic 2 — Data Models
-- [ ] Create `WordEntry` model
+- [x] Create `WordEntry` model
   - `id`
   - `spanish`
   - `english`
   - `examples: [ExampleSentence]`
-- [ ] Create `ExampleSentence` model
+- [x] Create `ExampleSentence` model
   - `spanish`
   - `english`
 

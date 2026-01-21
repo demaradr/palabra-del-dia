@@ -581,6 +581,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PalabraDD/Preview Content\"";
+				DEVELOPMENT_TEAM = Q4FLU9SK26;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -611,6 +612,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PalabraDD/Preview Content\"";
+				DEVELOPMENT_TEAM = Q4FLU9SK26;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -711,6 +713,7 @@
 				CODE_SIGN_ENTITLEMENTS = PalabraWidget/PalabraWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q4FLU9SK26;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PalabraWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PalabraWidget;
@@ -738,6 +741,7 @@
 				CODE_SIGN_ENTITLEMENTS = PalabraWidget/PalabraWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q4FLU9SK26;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PalabraWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PalabraWidget;

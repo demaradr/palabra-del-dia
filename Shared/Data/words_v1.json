@@ -1,46 +1,26 @@
-//
-//  words_v1.json
-//  PalabraDD
-//
-//  Created by Developer on 11/1/25.
-//
-
-import Foundation
 [
   {
     "id": "hablar",
-    "lemma": "hablar",
-    "pos": "verb",
-    "region": "es-ES",
-    "translation_en": "to speak; to talk",
-    "definition_es": "Comunicar ideas mediante palabras.",
+    "spanish": "hablar",
+    "english": "to speak; to talk",
     "examples": [
-      { "es": "Quiero hablar contigo.", "en": "I want to talk with you." }
-    ],
-    "frequency_rank": 512
+      { "spanish": "Quiero hablar contigo.", "english": "I want to talk with you." }
+    ]
   },
   {
     "id": "casa",
-    "lemma": "casa",
-    "pos": "noun",
-    "region": "es-ES",
-    "translation_en": "house; home",
-    "definition_es": "Edificio para habitar.",
+    "spanish": "casa",
+    "english": "house; home",
     "examples": [
-      { "es": "Vivo en una casa pequeña.", "en": "I live in a small house." }
-    ],
-    "frequency_rank": 420
+      { "spanish": "Vivo en una casa pequena.", "english": "I live in a small house." }
+    ]
   },
   {
     "id": "chido",
-    "lemma": "chido",
-    "pos": "adjective",
-    "region": "es-MX",
-    "translation_en": "cool; awesome",
-    "definition_es": "Excelente o muy bueno (uso coloquial en México).",
+    "spanish": "chido",
+    "english": "cool; awesome",
     "examples": [
-        { "es": "¡Qué chido está tu coche!", "en": "Your car is so cool!" }
-    ],
-    "frequency_rank": 3000
+      { "spanish": "Que chido esta tu coche!", "english": "Your car is so cool!" }
+    ]
   }
 ]
