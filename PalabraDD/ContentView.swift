@@ -50,13 +50,14 @@ struct ContentView: View {
             }
 
             do {
-                let words = try WordBundleLoader.load()
-                print("Loaded words: \(words.count)")
-                if let first = words.first {
-                    print("First word:", first.spanish, "-", first.english)
+                let source = try BundledWordSource()
+                if let word = source.nextWord() {
+                    print("Selected word:", word.spanish, "-", word.english)
+                    firstWord = word
+                    status = "Loaded word"
+                } else {
+                    status = "No words found"
                 }
-                firstWord = words.first
-                status = "Loaded \(words.count) words"
             } catch {
                 status = "Load error: \(error.localizedDescription)"
                 print("Load error:", error)

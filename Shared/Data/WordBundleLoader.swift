@@ -14,7 +14,7 @@ enum WordLoadError: Error {
 final class WordBundleLoader {
     static func load() throws -> [WordEntry] {
         let bundle = Bundle.moduleIfAvailable ?? Bundle.main
-        guard let url = bundle.url(forResource: "words_v1", withExtension: "json") else {
+        guard let url = bundle.url(forResource: "words_es_en", withExtension: "json") else {
             throw WordLoadError.fileNotFound
         }
         let data = try Data(contentsOf: url)

@@ -64,8 +64,8 @@ Specified by the user. EXAMPLE: User chooses - 5 words a day between 7am and 9pm
 ---
 
 ## Epic 3 — Word Source (Free)
-- [ ] Add bundled file `words_es_en.json`
-- [ ] Implement `BundledWordSource`
+- [x] Add bundled file `words_es_en.json`
+- [x] Implement `BundledWordSource`
   - load JSON
   - return random unseen word
   - avoid duplicates
@@ -179,6 +179,7 @@ Specified by the user. EXAMPLE: User chooses - 5 words a day between 7am and 9pm
   - word scheduling logic
   - how to add more words
   - known MVP limitations
+- [ ] Add a simple import workflow for expanding the word list (CSV/JSON)
 
 ---
 
