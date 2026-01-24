@@ -25,10 +25,13 @@
 		8B9645FB2EB70A6B0076E2F2 /* words_es_en.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B9645FA2EB70A6A0076E2F2 /* words_es_en.json */; };
 		8B9645FC2EB70A930076E2F2 /* words_es_en.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B9645FA2EB70A6A0076E2F2 /* words_es_en.json */; };
 		8B9645FF2EB70CB80076E2F2 /* WordEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9645FE2EB70CB80076E2F2 /* WordEntry.swift */; };
+		8B96460C2EB714730076E2F2 /* WordEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9645FE2EB70CB80076E2F2 /* WordEntry.swift */; };
 		8B9646012EB70CFB0076E2F2 /* WordBundleLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646002EB70CFB0076E2F2 /* WordBundleLoader.swift */; };
 		8B9646022EB70E0A0076E2F2 /* BundledWordSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646032EB70E0A0076E2F2 /* BundledWordSource.swift */; };
 		8B9646042EB7101E0076E2F2 /* SharedWordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646052EB7101E0076E2F2 /* SharedWordStore.swift */; };
 		8B9646062EB7101E0076E2F2 /* SharedWordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646052EB7101E0076E2F2 /* SharedWordStore.swift */; };
+		8B9646082EB7113C0076E2F2 /* WordScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646092EB7113C0076E2F2 /* WordScheduler.swift */; };
+		8B96460A2EB7113C0076E2F2 /* WordScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646092EB7113C0076E2F2 /* WordScheduler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +97,7 @@
 		8B9646002EB70CFB0076E2F2 /* WordBundleLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordBundleLoader.swift; sourceTree = "<group>"; };
 		8B9646032EB70E0A0076E2F2 /* BundledWordSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledWordSource.swift; sourceTree = "<group>"; };
 		8B9646052EB7101E0076E2F2 /* SharedWordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedWordStore.swift; sourceTree = "<group>"; };
+		8B9646092EB7113C0076E2F2 /* WordScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordScheduler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +222,7 @@
 				8B9645FD2EB70CA50076E2F2 /* Models */,
 				8B9645F92EB70A2F0076E2F2 /* Data */,
 				8B9646072EB7101E0076E2F2 /* Storage */,
+				8B96460B2EB7113C0076E2F2 /* Logic */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -246,6 +251,14 @@
 				8B9646052EB7101E0076E2F2 /* SharedWordStore.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		8B96460B2EB7113C0076E2F2 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				8B9646092EB7113C0076E2F2 /* WordScheduler.swift */,
+			);
+			path = Logic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -417,6 +430,7 @@
 				8B9646022EB70E0A0076E2F2 /* BundledWordSource.swift in Sources */,
 				8B9645FF2EB70CB80076E2F2 /* WordEntry.swift in Sources */,
 				8B9646042EB7101E0076E2F2 /* SharedWordStore.swift in Sources */,
+				8B9646082EB7113C0076E2F2 /* WordScheduler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +460,8 @@
 				8B9645EB2EB708890076E2F2 /* PalabraWidget.swift in Sources */,
 				8B9645E72EB708890076E2F2 /* PalabraWidgetBundle.swift in Sources */,
 				8B9646062EB7101E0076E2F2 /* SharedWordStore.swift in Sources */,
+				8B96460C2EB714730076E2F2 /* WordEntry.swift in Sources */,
+				8B96460A2EB7113C0076E2F2 /* WordScheduler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

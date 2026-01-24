@@ -52,8 +52,14 @@ struct ContentView: View {
 
             do {
                 let store = SharedWordStore.shared
-                let source = try BundledWordSource(seenIDs: Set(store.loadSeenWordIDs()))
-                if let word = source.nextWord() {
+                let words = try WordBundleLoader.load()
+                let scheduler = WordScheduler(words: words)
+                let schedule = scheduler.loadOrCreateSchedule(store: store, slotsPerDay: 5, startHour: 7, endHour: 21)
+
+                let currentID = scheduler.currentWordID(for: Date(), schedule: schedule)
+                let currentWord = words.first { $0.id == currentID } ?? words.first
+
+                if let word = currentWord {
                     print("Selected word:", word.spanish, "-", word.english)
                     firstWord = word
                     store.saveCurrentWordID(word.id)

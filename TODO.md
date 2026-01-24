@@ -91,10 +91,10 @@ Specified by the user. EXAMPLE: User chooses - 5 words a day between 7am and 9pm
 ---
 
 ## Epic 5 — Word Scheduling Engine
-- [ ] Implement `WordScheduler`
+- [x] Implement `WordScheduler`
   - assign word IDs to each daily time slot
   - select current word based on local time
-- [ ] Generate schedule once per day
+- [x] Generate schedule once per day
 
 **Acceptance Criteria**
 - No duplicate words within the same day
