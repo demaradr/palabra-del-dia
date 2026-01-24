@@ -103,7 +103,7 @@ Specified by the user. EXAMPLE: User chooses - 5 words a day between 7am and 9pm
 ---
 
 ## Epic 6 — Widget Timeline
-- [ ] Implement WidgetKit `TimelineProvider`
+- [x] Implement WidgetKit `TimelineProvider`
   - read schedule from App Group
   - generate timeline entries for each slot
   - fallback placeholder if data is missing
@@ -117,12 +117,12 @@ Specified by the user. EXAMPLE: User chooses - 5 words a day between 7am and 9pm
 ## Epic 7 — Widget UI
 
 ### Home Screen Widget
-- [ ] Display Spanish word (large)
-- [ ] Display English translation (secondary)
+- [x] Display Spanish word (large)
+- [x] Display English translation (secondary)
 
 ### Lock Screen Widgets
-- [ ] Inline: Spanish word only
-- [ ] Rectangular: Spanish + English
+- [x] Inline: Spanish word only
+- [x] Rectangular: Spanish + English
 
 **Acceptance Criteria**
 - Readable in light and dark mode

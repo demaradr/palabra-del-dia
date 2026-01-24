@@ -10,26 +10,63 @@ import SwiftUI
 
 struct Provider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationAppIntent(), wordID: SharedWordStore.shared.loadCurrentWordID())
+        SimpleEntry(
+            date: Date(),
+            configuration: ConfigurationAppIntent(),
+            wordID: "hablar",
+            word: WordEntry(
+                id: "hablar",
+                spanish: "hablar",
+                english: "to speak; to talk",
+                examples: []
+            )
+        )
     }
 
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: configuration, wordID: SharedWordStore.shared.loadCurrentWordID())
+        let word = loadWords().first
+        return SimpleEntry(
+            date: Date(),
+            configuration: configuration,
+            wordID: word?.id,
+            word: word
+        )
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        var entries: [SimpleEntry] = []
+        let store = SharedWordStore.shared
+        let calendar = Calendar.current
+        let now = Date()
+        let words = loadWords()
+        let wordsByID = Dictionary(uniqueKeysWithValues: words.map { ($0.id, $0) })
 
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        let currentWordID = SharedWordStore.shared.loadCurrentWordID()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration, wordID: currentWordID)
-            entries.append(entry)
+        guard let schedule = store.loadSchedule(),
+              calendar.isDate(schedule.date, inSameDayAs: now),
+              !schedule.slots.isEmpty else {
+            let entry = SimpleEntry(date: now, configuration: configuration, wordID: nil, word: nil)
+            return Timeline(entries: [entry], policy: .after(calendar.date(byAdding: .hour, value: 1, to: now) ?? now.addingTimeInterval(3600)))
         }
 
+        let entries = schedule.slots
+            .sorted { $0.start < $1.start }
+            .map { slot in
+                SimpleEntry(
+                    date: slot.start,
+                    configuration: configuration,
+                    wordID: slot.wordID,
+                    word: wordsByID[slot.wordID]
+                )
+            }
+
         return Timeline(entries: entries, policy: .atEnd)
+    }
+
+    private func loadWords() -> [WordEntry] {
+        do {
+            return try WordBundleLoader.load()
+        } catch {
+            return []
+        }
     }
 }
 
@@ -37,27 +74,43 @@ struct SimpleEntry: TimelineEntry {
     let date: Date
     let configuration: ConfigurationAppIntent
     let wordID: String?
+    let word: WordEntry?
 }
 
 struct PalabraWidgetEntryView : View {
     var entry: Provider.Entry
+    @Environment(\.widgetFamily) private var family
 
     var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Favorite Emoji:")
-            Text(entry.configuration.favoriteEmoji)
-
-            Text("Word ID:")
-            Text(entry.wordID ?? "None")
-
-            if !SharedWordStore.shared.isAppGroupAvailable {
-                Text("App Group unavailable")
-                    .font(.caption2)
+        switch family {
+        case .accessoryInline:
+            Text(entry.word?.spanish ?? "Palabrita")
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+        case .accessoryRectangular:
+            VStack(alignment: .leading, spacing: 2) {
+                Text(entry.word?.spanish ?? "Palabrita")
+                    .font(.headline)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                Text(entry.word?.english ?? "Spanish word")
+                    .font(.caption)
                     .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
             }
+        default:
+            VStack(alignment: .leading, spacing: 6) {
+                Text(entry.word?.spanish ?? "Palabrita")
+                    .font(.system(size: 28, weight: .bold))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
+                Text(entry.word?.english ?? "Spanish word of the day")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(2)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         }
     }
 }
@@ -91,6 +144,16 @@ extension ConfigurationAppIntent {
 #Preview(as: .systemSmall) {
     PalabraWidget()
 } timeline: {
-    SimpleEntry(date: .now, configuration: .smiley, wordID: "hablar")
-    SimpleEntry(date: .now, configuration: .starEyes, wordID: "casa")
+    SimpleEntry(
+        date: .now,
+        configuration: .smiley,
+        wordID: "hablar",
+        word: WordEntry(id: "hablar", spanish: "hablar", english: "to speak; to talk", examples: [])
+    )
+    SimpleEntry(
+        date: .now,
+        configuration: .starEyes,
+        wordID: "casa",
+        word: WordEntry(id: "casa", spanish: "casa", english: "house; home", examples: [])
+    )
 }

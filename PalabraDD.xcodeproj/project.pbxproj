@@ -27,6 +27,7 @@
 		8B9645FF2EB70CB80076E2F2 /* WordEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9645FE2EB70CB80076E2F2 /* WordEntry.swift */; };
 		8B96460C2EB714730076E2F2 /* WordEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9645FE2EB70CB80076E2F2 /* WordEntry.swift */; };
 		8B9646012EB70CFB0076E2F2 /* WordBundleLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646002EB70CFB0076E2F2 /* WordBundleLoader.swift */; };
+		8B96460D2EB716670076E2F2 /* WordBundleLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646002EB70CFB0076E2F2 /* WordBundleLoader.swift */; };
 		8B9646022EB70E0A0076E2F2 /* BundledWordSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646032EB70E0A0076E2F2 /* BundledWordSource.swift */; };
 		8B9646042EB7101E0076E2F2 /* SharedWordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646052EB7101E0076E2F2 /* SharedWordStore.swift */; };
 		8B9646062EB7101E0076E2F2 /* SharedWordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646052EB7101E0076E2F2 /* SharedWordStore.swift */; };
@@ -462,6 +463,7 @@
 				8B9646062EB7101E0076E2F2 /* SharedWordStore.swift in Sources */,
 				8B96460C2EB714730076E2F2 /* WordEntry.swift in Sources */,
 				8B96460A2EB7113C0076E2F2 /* WordScheduler.swift in Sources */,
+				8B96460D2EB716670076E2F2 /* WordBundleLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
