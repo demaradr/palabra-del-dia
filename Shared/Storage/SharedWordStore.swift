@@ -60,12 +60,37 @@ final class SharedWordStore {
         defaults.set(id, forKey: Keys.currentWordID)
     }
 
+    func loadHistoryIDs() -> [String] {
+        defaults.stringArray(forKey: Keys.historyWordIDs) ?? []
+    }
+
+    func saveHistoryIDs(_ ids: [String]) {
+        defaults.set(ids, forKey: Keys.historyWordIDs)
+    }
+
+    func appendHistory(_ id: String, limit: Int = 50) {
+        var ids = loadHistoryIDs().filter { $0 != id }
+        ids.append(id)
+        if ids.count > limit {
+            ids = Array(ids.suffix(limit))
+        }
+        saveHistoryIDs(ids)
+    }
+
     func loadSchedule() -> DailyWordSchedule? {
         loadCodable(forKey: Keys.dailySchedule)
     }
 
     func saveSchedule(_ schedule: DailyWordSchedule?) {
         saveCodable(schedule, forKey: Keys.dailySchedule)
+    }
+
+    func loadScheduleSettings() -> WordScheduleSettings? {
+        loadCodable(forKey: Keys.scheduleSettings)
+    }
+
+    func saveScheduleSettings(_ settings: WordScheduleSettings) {
+        saveCodable(settings, forKey: Keys.scheduleSettings)
     }
 
     private func loadCodable<T: Decodable>(forKey key: String) -> T? {
@@ -91,6 +116,8 @@ final class SharedWordStore {
     private enum Keys {
         static let seenWordIDs = "seenWordIDs"
         static let currentWordID = "currentWordID"
+        static let historyWordIDs = "historyWordIDs"
         static let dailySchedule = "dailySchedule"
+        static let scheduleSettings = "scheduleSettings"
     }
 }

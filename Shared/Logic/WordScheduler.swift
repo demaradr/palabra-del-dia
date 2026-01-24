@@ -16,18 +16,20 @@ final class WordScheduler {
         self.calendar = calendar
     }
 
-    func loadOrCreateSchedule(store: SharedWordStore, slotsPerDay: Int, startHour: Int, endHour: Int, now: Date = Date()) -> DailyWordSchedule {
-        if let existing = store.loadSchedule(), calendar.isDate(existing.date, inSameDayAs: now) {
+    func loadOrCreateSchedule(store: SharedWordStore, settings: WordScheduleSettings, now: Date = Date()) -> DailyWordSchedule {
+        let anchorDate = scheduleAnchorDate(for: now, settings: settings)
+
+        if let existing = store.loadSchedule(), calendar.isDate(existing.date, inSameDayAs: anchorDate) {
             return existing
         }
 
-        let startOfDay = calendar.startOfDay(for: now)
+        let startOfDay = calendar.startOfDay(for: anchorDate)
         let slots = buildSlots(
             for: startOfDay,
-            slotsPerDay: slotsPerDay,
-            startHour: startHour,
-            endHour: endHour,
-            wordIDs: uniqueWordIDs(limit: slotsPerDay)
+            slotsPerDay: settings.wordsPerDay,
+            startMinutes: settings.startMinutes,
+            endMinutes: settings.endMinutes,
+            wordIDs: uniqueWordIDs(limit: settings.wordsPerDay)
         )
 
         let schedule = DailyWordSchedule(date: startOfDay, slots: slots)
@@ -51,7 +53,7 @@ final class WordScheduler {
             }
         }
 
-        return current?.wordID ?? sortedSlots.first?.wordID
+        return current?.wordID
     }
 
     private func uniqueWordIDs(limit: Int) -> [String] {
@@ -63,21 +65,43 @@ final class WordScheduler {
         return Array(words.shuffled().prefix(uniqueCount)).map { $0.id }
     }
 
-    private func buildSlots(for date: Date, slotsPerDay: Int, startHour: Int, endHour: Int, wordIDs: [String]) -> [WordSlot] {
+    private func buildSlots(for date: Date, slotsPerDay: Int, startMinutes: Int, endMinutes: Int, wordIDs: [String]) -> [WordSlot] {
         guard slotsPerDay > 0 else {
             return []
         }
 
-        let hourCount = max(1, endHour - startHour)
-        let intervalSeconds = (Double(hourCount) * 3600.0) / Double(max(1, slotsPerDay))
+        let start = max(0, min(startMinutes, 24 * 60))
+        let end = max(0, min(endMinutes, 24 * 60))
+        let totalMinutes = end <= start ? (24 * 60 - start) + end : (end - start)
+        let intervalSeconds = (Double(max(1, totalMinutes)) * 60.0) / Double(max(1, slotsPerDay))
 
         var slots: [WordSlot] = []
         for index in 0..<min(slotsPerDay, wordIDs.count) {
             let offsetSeconds = Double(index) * intervalSeconds
-            let start = calendar.date(byAdding: .second, value: Int(offsetSeconds), to: calendar.date(bySettingHour: startHour, minute: 0, second: 0, of: date) ?? date) ?? date
-            slots.append(WordSlot(start: start, wordID: wordIDs[index]))
+            let startDate = calendar.date(byAdding: .minute, value: start, to: date) ?? date
+            let slotStart = calendar.date(byAdding: .second, value: Int(offsetSeconds), to: startDate) ?? startDate
+            slots.append(WordSlot(start: slotStart, wordID: wordIDs[index]))
         }
 
         return slots
+    }
+
+    private func scheduleAnchorDate(for now: Date, settings: WordScheduleSettings) -> Date {
+        let startOfDay = calendar.startOfDay(for: now)
+        guard settings.crossesMidnight else {
+            return startOfDay
+        }
+
+        let minutesNow = minutesSinceStartOfDay(now)
+        if minutesNow < settings.endMinutes {
+            return calendar.date(byAdding: .day, value: -1, to: startOfDay) ?? startOfDay
+        }
+
+        return startOfDay
+    }
+
+    private func minutesSinceStartOfDay(_ date: Date) -> Int {
+        let comps = calendar.dateComponents([.hour, .minute], from: date)
+        return (comps.hour ?? 0) * 60 + (comps.minute ?? 0)
     }
 }

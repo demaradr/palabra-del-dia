@@ -33,6 +33,9 @@
 		8B9646062EB7101E0076E2F2 /* SharedWordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646052EB7101E0076E2F2 /* SharedWordStore.swift */; };
 		8B9646082EB7113C0076E2F2 /* WordScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646092EB7113C0076E2F2 /* WordScheduler.swift */; };
 		8B96460A2EB7113C0076E2F2 /* WordScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646092EB7113C0076E2F2 /* WordScheduler.swift */; };
+		8B9646102EB71A0D0076E2F2 /* PronunciationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B96460E2EB71A0D0076E2F2 /* PronunciationService.swift */; };
+		8B9646112EB7216C0076E2F2 /* WordScheduleSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646122EB7216C0076E2F2 /* WordScheduleSettings.swift */; };
+		8B9646132EB7216C0076E2F2 /* WordScheduleSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9646122EB7216C0076E2F2 /* WordScheduleSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +102,8 @@
 		8B9646032EB70E0A0076E2F2 /* BundledWordSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledWordSource.swift; sourceTree = "<group>"; };
 		8B9646052EB7101E0076E2F2 /* SharedWordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedWordStore.swift; sourceTree = "<group>"; };
 		8B9646092EB7113C0076E2F2 /* WordScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordScheduler.swift; sourceTree = "<group>"; };
+		8B96460E2EB71A0D0076E2F2 /* PronunciationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PronunciationService.swift; sourceTree = "<group>"; };
+		8B9646122EB7216C0076E2F2 /* WordScheduleSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordScheduleSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +229,7 @@
 				8B9645F92EB70A2F0076E2F2 /* Data */,
 				8B9646072EB7101E0076E2F2 /* Storage */,
 				8B96460B2EB7113C0076E2F2 /* Logic */,
+				8B96460F2EB71A0D0076E2F2 /* Audio */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -242,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				8B9645FE2EB70CB80076E2F2 /* WordEntry.swift */,
+				8B9646122EB7216C0076E2F2 /* WordScheduleSettings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -260,6 +267,14 @@
 				8B9646092EB7113C0076E2F2 /* WordScheduler.swift */,
 			);
 			path = Logic;
+			sourceTree = "<group>";
+		};
+		8B96460F2EB71A0D0076E2F2 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				8B96460E2EB71A0D0076E2F2 /* PronunciationService.swift */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -430,8 +445,10 @@
 				8B9646012EB70CFB0076E2F2 /* WordBundleLoader.swift in Sources */,
 				8B9646022EB70E0A0076E2F2 /* BundledWordSource.swift in Sources */,
 				8B9645FF2EB70CB80076E2F2 /* WordEntry.swift in Sources */,
+				8B9646112EB7216C0076E2F2 /* WordScheduleSettings.swift in Sources */,
 				8B9646042EB7101E0076E2F2 /* SharedWordStore.swift in Sources */,
 				8B9646082EB7113C0076E2F2 /* WordScheduler.swift in Sources */,
+				8B9646102EB71A0D0076E2F2 /* PronunciationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +479,7 @@
 				8B9645E72EB708890076E2F2 /* PalabraWidgetBundle.swift in Sources */,
 				8B9646062EB7101E0076E2F2 /* SharedWordStore.swift in Sources */,
 				8B96460C2EB714730076E2F2 /* WordEntry.swift in Sources */,
+				8B9646132EB7216C0076E2F2 /* WordScheduleSettings.swift in Sources */,
 				8B96460A2EB7113C0076E2F2 /* WordScheduler.swift in Sources */,
 				8B96460D2EB716670076E2F2 /* WordBundleLoader.swift in Sources */,
 			);

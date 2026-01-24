@@ -131,14 +131,14 @@ Specified by the user. EXAMPLE: User chooses - 5 words a day between 7am and 9pm
 ---
 
 ## Epic 8 — In-App UI
-- [ ] Main word screen
+- [x] Main word screen
   - Spanish word
   - English translation
   - Example sentences (if available)
   - Audio play button
-- [ ] Swipe up gesture to get next word
-- [ ] Button fallback (“Next word”)
-- [ ] History screen (last 20–50 words)
+- [x] Swipe up gesture to get next word
+- [x] Button fallback (“Next word”)
+- [x] History screen (last 20–50 words)
 
 **Acceptance Criteria**
 - Swipe gesture works reliably
@@ -148,10 +148,10 @@ Specified by the user. EXAMPLE: User chooses - 5 words a day between 7am and 9pm
 ---
 
 ## Epic 9 — Audio Pronunciation
-- [ ] Implement `PronunciationService`
+- [x] Implement `PronunciationService`
   - AVSpeechSynthesizer
   - Spanish voice (`es-ES` or `es-MX`)
-- [ ] Prevent overlapping audio playback
+- [x] Prevent overlapping audio playback
 
 **Acceptance Criteria**
 - Works offline
