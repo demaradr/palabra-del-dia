@@ -12,10 +12,15 @@ struct ContentView: View {
 
     @State private var status: String = "Loading…"
     @State private var words: [WordEntry] = []
+    @State private var filteredWords: [WordEntry] = []
     @State private var currentWord: WordEntry?
     @State private var historyIDs: [String] = []
     @State private var showingSettings: Bool = false
     @State private var scheduleSettings: WordScheduleSettings = .defaultSettings
+    @State private var filterSettings: WordFilterSettings = .all
+    @State private var languageSelectionID: String = LanguageCatalog.defaultID
+    @State private var availableLevels: [String] = []
+    @State private var availableCategories: [String] = []
 
     init(useMockData: Bool = false) {
         self.useMockData = useMockData
@@ -29,13 +34,13 @@ struct ContentView: View {
                 ZStack {
                     if let word = currentWord {
                         VStack(alignment: .center, spacing: 8) {
-                            Text(word.spanish)
+                            Text(word.source)
                                 .font(.system(size: 34, weight: .semibold))
                                 .foregroundStyle(.primary)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.7)
 
-                            Text(word.english)
+                            Text(word.target)
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
@@ -58,7 +63,7 @@ struct ContentView: View {
                 ZStack {
                     if let word = currentWord, !word.examples.isEmpty {
                         VStack(alignment: .center, spacing: 18) {
-                            ForEach(word.examples.indices, id: \.self) { index in
+                            ForEach(Array(word.examples.prefix(2)).indices, id: \.self) { index in
                                 ExampleSentenceView(example: word.examples[index])
                             }
                         }
@@ -137,9 +142,18 @@ struct ContentView: View {
             .sheet(isPresented: $showingSettings) {
                 ScheduleSettingsView(
                     settings: scheduleSettings,
-                    onSave: { newSettings in
+                    filterSettings: filterSettings,
+                    languageSelectionID: languageSelectionID,
+                    availableLevels: availableLevels,
+                    availableCategories: availableCategories,
+                    onSave: { newSettings, newFilters, newLanguageID in
                         scheduleSettings = newSettings
+                        filterSettings = newFilters
+                        languageSelectionID = newLanguageID
                         SharedWordStore.shared.saveScheduleSettings(newSettings)
+                        SharedWordStore.shared.saveFilterSettings(newFilters)
+                        SharedWordStore.shared.saveLanguageSelectionID(newLanguageID)
+                        WidgetCenter.shared.reloadAllTimelines()
                         loadInitialWord()
                         showingSettings = false
                     }
@@ -150,12 +164,20 @@ struct ContentView: View {
             .task {
                 guard !useMockData else {
                     let mock = WordEntry(
-                        id: "hablar",
-                        spanish: "hablar",
-                        english: "to speak; to talk",
-                        examples: [ExampleSentence(spanish: "Quiero hablar contigo.", english: "I want to talk with you.")]
+                        id: "es:hablar",
+                        source: "hablar",
+                        target: "to speak; to talk",
+                        sourceLanguage: "es-ES",
+                        targetLanguage: "en-US",
+                        examples: [
+                            ExampleSentence(source: "Quiero hablar contigo.", target: "I want to talk with you."),
+                            ExampleSentence(source: "Hablamos despues de comer.", target: "We talk after lunch.")
+                        ],
+                        level: "beginner",
+                        categories: ["daily-life", "communication"]
                     )
                     words = [mock]
+                    filteredWords = [mock]
                     currentWord = mock
                     historyIDs = [mock.id]
                     status = "Preview (mock data)"
@@ -170,23 +192,31 @@ struct ContentView: View {
     private func loadInitialWord() {
         do {
             let store = SharedWordStore.shared
-            let loadedWords = try WordBundleLoader.load()
+            languageSelectionID = store.loadLanguageSelectionID() ?? LanguageCatalog.defaultID
+            let languageOption = LanguageCatalog.option(for: languageSelectionID)
+            let loadedWords = try WordBundleLoader.load(fileName: languageOption.fileName)
             words = loadedWords
             historyIDs = store.loadHistoryIDs()
             scheduleSettings = store.loadScheduleSettings() ?? .defaultSettings
+            filterSettings = store.loadFilterSettings() ?? .all
+            availableLevels = Array(Set(loadedWords.map { $0.level })).sorted()
+            availableCategories = Array(Set(loadedWords.flatMap { $0.categories })).sorted()
             if store.loadScheduleSettings() == nil {
                 showingSettings = true
             }
 
-            let scheduler = WordScheduler(words: loadedWords)
+            let usableWords = applyFilters(to: loadedWords, settings: filterSettings)
+            filteredWords = usableWords.isEmpty ? loadedWords : usableWords
+
+            let scheduler = WordScheduler(words: filteredWords)
             let schedule = scheduler.loadOrCreateSchedule(store: store, settings: scheduleSettings)
             let currentID = scheduler.currentWordID(for: Date(), schedule: schedule)
-            let resolvedWord = loadedWords.first { $0.id == currentID } ?? {
+            let resolvedWord = filteredWords.first { $0.id == currentID } ?? {
                 if let storedID = store.loadCurrentWordID() {
-                    return loadedWords.first { $0.id == storedID }
+                    return filteredWords.first { $0.id == storedID }
                 }
                 return nil
-            }() ?? loadedWords.first
+            }() ?? filteredWords.first
 
             guard let word = resolvedWord else {
                 status = "No words found"
@@ -203,7 +233,10 @@ struct ContentView: View {
     private func requestNextWord() {
         do {
             let store = SharedWordStore.shared
-            let source = try BundledWordSource(seenIDs: Set(store.loadSeenWordIDs()))
+            let source = try BundledWordSource(
+                seenIDs: Set(store.loadSeenWordIDs()),
+                loader: { filteredWords.isEmpty ? words : filteredWords }
+            )
             guard let next = source.nextWord() else {
                 status = "No words found"
                 return
@@ -217,7 +250,7 @@ struct ContentView: View {
 
     private func setCurrentWord(_ word: WordEntry, animated: Bool) {
         let store = SharedWordStore.shared
-        print("Selected word:", word.spanish, "-", word.english)
+        print("Selected word:", word.source, "-", word.target)
         if animated {
             withAnimation(.spring(response: 0.45, dampingFraction: 0.85)) {
                 currentWord = word
@@ -234,11 +267,19 @@ struct ContentView: View {
     }
 
     private func playPronunciation(for word: WordEntry) {
-        PronunciationService.shared.speak(word.spanish)
+        PronunciationService.shared.speak(word.source, localeIdentifier: word.sourceLanguage)
     }
 
     private var storeNeedsSetup: Bool {
         SharedWordStore.shared.loadScheduleSettings() == nil
+    }
+
+    private func applyFilters(to words: [WordEntry], settings: WordFilterSettings) -> [WordEntry] {
+        words.filter { word in
+            let levelMatch = settings.selectsAllLevels || settings.levels.contains(word.level)
+            let categoryMatch = settings.selectsAllCategories || !Set(settings.categories).isDisjoint(with: word.categories)
+            return levelMatch && categoryMatch
+        }
     }
 }
 
@@ -260,10 +301,10 @@ private struct ExampleSentenceView: View {
 
     var body: some View {
         VStack(alignment: .center, spacing: 4) {
-            Text(example.spanish)
+            Text(example.source)
                 .font(.subheadline)
                 .foregroundStyle(.primary)
-            Text(example.english)
+            Text(example.target)
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
@@ -284,9 +325,9 @@ private struct WordHistoryView: View {
             } else {
                 ForEach(historyWords, id: \.id) { word in
                     VStack(alignment: .leading, spacing: 6) {
-                        Text(word.spanish)
+                        Text(word.source)
                             .font(.headline.weight(.semibold))
-                        Text(word.english)
+                        Text(word.target)
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -309,13 +350,30 @@ private struct ScheduleSettingsView: View {
     @State private var wordsPerDay: Int
     @State private var startTime: Date
     @State private var endTime: Date
+    @State private var selectedLevels: [String]
+    @State private var selectedCategories: [String]
+    @State private var selectedLanguageID: String
 
-    let onSave: (WordScheduleSettings) -> Void
+    let availableLevels: [String]
+    let availableCategories: [String]
+    let onSave: (WordScheduleSettings, WordFilterSettings, String) -> Void
 
-    init(settings: WordScheduleSettings, onSave: @escaping (WordScheduleSettings) -> Void) {
+    init(
+        settings: WordScheduleSettings,
+        filterSettings: WordFilterSettings,
+        languageSelectionID: String,
+        availableLevels: [String],
+        availableCategories: [String],
+        onSave: @escaping (WordScheduleSettings, WordFilterSettings, String) -> Void
+    ) {
         _wordsPerDay = State(initialValue: settings.wordsPerDay)
         _startTime = State(initialValue: ScheduleSettingsView.dateFromMinutes(settings.startMinutes))
         _endTime = State(initialValue: ScheduleSettingsView.dateFromMinutes(settings.endMinutes))
+        _selectedLevels = State(initialValue: filterSettings.levels)
+        _selectedCategories = State(initialValue: filterSettings.categories)
+        _selectedLanguageID = State(initialValue: languageSelectionID)
+        self.availableLevels = availableLevels
+        self.availableCategories = availableCategories
         self.onSave = onSave
     }
 
@@ -335,12 +393,54 @@ private struct ScheduleSettingsView: View {
                         Text("\(wordsPerDay) words")
                     }
                 }
+
+                Section("Language") {
+                    Picker("Learning", selection: $selectedLanguageID) {
+                        ForEach(LanguageCatalog.options, id: \.id) { option in
+                            Text(option.label).tag(option.id)
+                        }
+                    }
+                }
+
+                Section("Levels") {
+                    if availableLevels.isEmpty {
+                        Text("No levels available.")
+                            .foregroundStyle(.secondary)
+                    } else {
+                        ForEach(availableLevels, id: \.self) { level in
+                            Toggle(isOn: bindingForLevel(level)) {
+                                Text(level.capitalized)
+                            }
+                        }
+                        Text("No selection = all levels")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+
+                Section("Categories") {
+                    if availableCategories.isEmpty {
+                        Text("No categories available.")
+                            .foregroundStyle(.secondary)
+                    } else {
+                        ForEach(availableCategories, id: \.self) { category in
+                            Toggle(isOn: bindingForCategory(category)) {
+                                Text(category)
+                            }
+                        }
+                        Text("No selection = all categories")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
             }
             .navigationTitle("Schedule")
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        onSave(WordScheduleSettings(wordsPerDay: wordsPerDay, startMinutes: startMinutes, endMinutes: endMinutes))
+                        let schedule = WordScheduleSettings(wordsPerDay: wordsPerDay, startMinutes: startMinutes, endMinutes: endMinutes)
+                        let filters = WordFilterSettings(levels: selectedLevels, categories: selectedCategories)
+                        onSave(schedule, filters, selectedLanguageID)
                     }
                 }
             }
@@ -369,6 +469,36 @@ private struct ScheduleSettingsView: View {
         let start = startMinutes
         let end = endMinutes
         return end <= start ? (24 * 60 - start) + end : (end - start)
+    }
+
+    private func bindingForLevel(_ level: String) -> Binding<Bool> {
+        Binding(
+            get: { selectedLevels.contains(level) },
+            set: { isOn in
+                if isOn {
+                    if !selectedLevels.contains(level) {
+                        selectedLevels.append(level)
+                    }
+                } else {
+                    selectedLevels.removeAll { $0 == level }
+                }
+            }
+        )
+    }
+
+    private func bindingForCategory(_ category: String) -> Binding<Bool> {
+        Binding(
+            get: { selectedCategories.contains(category) },
+            set: { isOn in
+                if isOn {
+                    if !selectedCategories.contains(category) {
+                        selectedCategories.append(category)
+                    }
+                } else {
+                    selectedCategories.removeAll { $0 == category }
+                }
+            }
+        )
     }
 
     private func minutes(from date: Date) -> Int {

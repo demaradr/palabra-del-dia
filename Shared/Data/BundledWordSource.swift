@@ -11,7 +11,7 @@ final class BundledWordSource {
     private let allWords: [WordEntry]
     private var seenIDs: Set<String>
 
-    init(seenIDs: Set<String> = [], loader: () throws -> [WordEntry] = WordBundleLoader.load) throws {
+    init(seenIDs: Set<String> = [], loader: () throws -> [WordEntry] = { try WordBundleLoader.load(fileName: "words_es_en") }) throws {
         self.allWords = try loader()
         self.seenIDs = seenIDs
     }

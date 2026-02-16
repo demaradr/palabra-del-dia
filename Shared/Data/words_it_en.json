@@ -1,0 +1,41 @@
+[
+  {
+    "id": "it:ciao",
+    "source": "Ciao",
+    "target": "hi; bye",
+    "sourceLanguage": "it-IT",
+    "targetLanguage": "en-US",
+    "level": "beginner",
+    "categories": ["social"],
+    "examples": [
+      { "source": "Ciao! Come stai?", "target": "Hi! How are you?" },
+      { "source": "Ciao, ci vediamo domani.", "target": "Bye, see you tomorrow." }
+    ]
+  },
+  {
+    "id": "it:casa",
+    "source": "casa",
+    "target": "home",
+    "sourceLanguage": "it-IT",
+    "targetLanguage": "en-US",
+    "level": "beginner",
+    "categories": ["home"],
+    "examples": [
+      { "source": "Sono a casa.", "target": "I am at home." },
+      { "source": "La casa e piccola.", "target": "The house is small." }
+    ]
+  },
+  {
+    "id": "it:acqua",
+    "source": "acqua",
+    "target": "water",
+    "sourceLanguage": "it-IT",
+    "targetLanguage": "en-US",
+    "level": "beginner",
+    "categories": ["essentials", "food"],
+    "examples": [
+      { "source": "Vorrei dell'acqua, per favore.", "target": "I would like some water, please." },
+      { "source": "L'acqua e fredda.", "target": "The water is cold." }
+    ]
+  }
+]

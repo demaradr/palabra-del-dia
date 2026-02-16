@@ -93,6 +93,22 @@ final class SharedWordStore {
         saveCodable(settings, forKey: Keys.scheduleSettings)
     }
 
+    func loadFilterSettings() -> WordFilterSettings? {
+        loadCodable(forKey: Keys.filterSettings)
+    }
+
+    func saveFilterSettings(_ settings: WordFilterSettings) {
+        saveCodable(settings, forKey: Keys.filterSettings)
+    }
+
+    func loadLanguageSelectionID() -> String? {
+        defaults.string(forKey: Keys.languageSelectionID)
+    }
+
+    func saveLanguageSelectionID(_ id: String) {
+        defaults.set(id, forKey: Keys.languageSelectionID)
+    }
+
     private func loadCodable<T: Decodable>(forKey key: String) -> T? {
         guard let data = defaults.data(forKey: key) else {
             return nil
@@ -119,5 +135,7 @@ final class SharedWordStore {
         static let historyWordIDs = "historyWordIDs"
         static let dailySchedule = "dailySchedule"
         static let scheduleSettings = "scheduleSettings"
+        static let filterSettings = "filterSettings"
+        static let languageSelectionID = "languageSelectionID"
     }
 }

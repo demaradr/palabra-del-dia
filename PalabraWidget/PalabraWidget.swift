@@ -13,12 +13,16 @@ struct Provider: AppIntentTimelineProvider {
         SimpleEntry(
             date: Date(),
             configuration: ConfigurationAppIntent(),
-            wordID: "hablar",
+            wordID: "es:hablar",
             word: WordEntry(
                 id: "hablar",
-                spanish: "hablar",
-                english: "to speak; to talk",
-                examples: []
+                source: "hablar",
+                target: "to speak; to talk",
+                sourceLanguage: "es-ES",
+                targetLanguage: "en-US",
+                examples: [],
+                level: "beginner",
+                categories: ["daily-life", "communication"]
             )
         )
     }
@@ -40,14 +44,26 @@ struct Provider: AppIntentTimelineProvider {
         let words = loadWords()
         let wordsByID = Dictionary(uniqueKeysWithValues: words.map { ($0.id, $0) })
 
-        guard let schedule = store.loadSchedule(),
-              calendar.isDate(schedule.date, inSameDayAs: now),
-              !schedule.slots.isEmpty else {
+        var schedule = store.loadSchedule()
+        let scheduleIsValid: Bool = {
+            guard let schedule, calendar.isDate(schedule.date, inSameDayAs: now), !schedule.slots.isEmpty else {
+                return false
+            }
+            return schedule.slots.allSatisfy { wordsByID[$0.wordID] != nil }
+        }()
+
+        if !scheduleIsValid {
+            let settings = store.loadScheduleSettings() ?? .defaultSettings
+            let scheduler = WordScheduler(words: words)
+            schedule = scheduler.loadOrCreateSchedule(store: store, settings: settings, now: now)
+        }
+
+        guard let resolvedSchedule = schedule, !resolvedSchedule.slots.isEmpty else {
             let entry = SimpleEntry(date: now, configuration: configuration, wordID: nil, word: nil)
             return Timeline(entries: [entry], policy: .after(calendar.date(byAdding: .hour, value: 1, to: now) ?? now.addingTimeInterval(3600)))
         }
 
-        let entries = schedule.slots
+        let entries = resolvedSchedule.slots
             .sorted { $0.start < $1.start }
             .map { slot in
                 SimpleEntry(
@@ -58,12 +74,18 @@ struct Provider: AppIntentTimelineProvider {
                 )
             }
 
+        if let currentID = WordScheduler(words: words).currentWordID(for: now, schedule: resolvedSchedule) {
+            store.saveCurrentWordID(currentID)
+        }
+
         return Timeline(entries: entries, policy: .atEnd)
     }
 
     private func loadWords() -> [WordEntry] {
         do {
-            return try WordBundleLoader.load()
+            let selectionID = SharedWordStore.shared.loadLanguageSelectionID()
+            let option = LanguageCatalog.option(for: selectionID)
+            return try WordBundleLoader.load(fileName: option.fileName)
         } catch {
             return []
         }
@@ -84,16 +106,16 @@ struct PalabraWidgetEntryView : View {
     var body: some View {
         switch family {
         case .accessoryInline:
-            Text(entry.word?.spanish ?? "Palabrita")
+            Text(entry.word?.source ?? "Palabrita")
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
         case .accessoryRectangular:
             VStack(alignment: .leading, spacing: 2) {
-                Text(entry.word?.spanish ?? "Palabrita")
+                Text(entry.word?.source ?? "Palabrita")
                     .font(.headline)
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
-                Text(entry.word?.english ?? "Spanish word")
+                Text(entry.word?.target ?? "Translation")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
@@ -101,11 +123,11 @@ struct PalabraWidgetEntryView : View {
             }
         default:
             VStack(alignment: .leading, spacing: 6) {
-                Text(entry.word?.spanish ?? "Palabrita")
+                Text(entry.word?.source ?? "Palabrita")
                     .font(.system(size: 28, weight: .bold))
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
-                Text(entry.word?.english ?? "Spanish word of the day")
+                Text(entry.word?.target ?? "Word of the day")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .lineLimit(2)
@@ -147,13 +169,31 @@ extension ConfigurationAppIntent {
     SimpleEntry(
         date: .now,
         configuration: .smiley,
-        wordID: "hablar",
-        word: WordEntry(id: "hablar", spanish: "hablar", english: "to speak; to talk", examples: [])
+        wordID: "es:hablar",
+        word: WordEntry(
+            id: "hablar",
+            source: "hablar",
+            target: "to speak; to talk",
+            sourceLanguage: "es-ES",
+            targetLanguage: "en-US",
+            examples: [],
+            level: "beginner",
+            categories: ["daily-life", "communication"]
+        )
     )
     SimpleEntry(
         date: .now,
         configuration: .starEyes,
-        wordID: "casa",
-        word: WordEntry(id: "casa", spanish: "casa", english: "house; home", examples: [])
+        wordID: "es:casa",
+        word: WordEntry(
+            id: "casa",
+            source: "casa",
+            target: "house; home",
+            sourceLanguage: "es-ES",
+            targetLanguage: "en-US",
+            examples: [],
+            level: "beginner",
+            categories: ["home"]
+        )
     )
 }

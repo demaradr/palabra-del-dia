@@ -1,26 +1,67 @@
 [
   {
-    "id": "hablar",
-    "spanish": "hablar",
-    "english": "to speak; to talk",
+    "id": "es:hablar",
+    "source": "hablar",
+    "target": "to speak; to talk",
+    "sourceLanguage": "es-ES",
+    "targetLanguage": "en-US",
+    "level": "beginner",
+    "categories": ["communication", "daily-life"],
     "examples": [
-      { "spanish": "Quiero hablar contigo.", "english": "I want to talk with you." }
+      { "source": "Quiero hablar contigo.", "target": "I want to talk with you." },
+      { "source": "Hablamos despues de comer.", "target": "We talk after lunch." }
     ]
   },
   {
-    "id": "casa",
-    "spanish": "casa",
-    "english": "house; home",
+    "id": "es:casa",
+    "source": "casa",
+    "target": "house; home",
+    "sourceLanguage": "es-ES",
+    "targetLanguage": "en-US",
+    "level": "beginner",
+    "categories": ["home"],
     "examples": [
-      { "spanish": "Vivo en una casa pequena.", "english": "I live in a small house." }
+      { "source": "Mi casa es pequena pero comoda.", "target": "My house is small but comfortable." },
+      { "source": "Estoy en casa esta tarde.", "target": "I am at home this afternoon." }
     ]
   },
   {
-    "id": "chulo",
-    "spanish": "chulo",
-    "english": "cool; awesome",
+    "id": "es:coche",
+    "source": "coche",
+    "target": "car",
+    "sourceLanguage": "es-ES",
+    "targetLanguage": "en-US",
+    "level": "beginner",
+    "categories": ["travel", "daily-life"],
     "examples": [
-      { "spanish": "Que chido esta tu coche!", "english": "Your car is so cool!" }
+      { "source": "Voy al trabajo en coche.", "target": "I go to work by car." },
+      { "source": "El coche esta aparcado afuera.", "target": "The car is parked outside." }
+    ]
+  },
+  {
+    "id": "es:trabajo",
+    "source": "trabajo",
+    "target": "work; job",
+    "sourceLanguage": "es-ES",
+    "targetLanguage": "en-US",
+    "level": "beginner",
+    "categories": ["work"],
+    "examples": [
+      { "source": "Trabajo en una oficina.", "target": "I work in an office." },
+      { "source": "Tengo mucho trabajo hoy.", "target": "I have a lot of work today." }
+    ]
+  },
+  {
+    "id": "es:chulo",
+    "source": "chulo",
+    "target": "cool; nice",
+    "sourceLanguage": "es-ES",
+    "targetLanguage": "en-US",
+    "level": "intermediate",
+    "categories": ["slang", "social"],
+    "examples": [
+      { "source": "Ese coche es muy chulo.", "target": "That car is very cool." },
+      { "source": "Tu chaqueta esta chula.", "target": "Your jacket is cool." }
     ]
   }
 ]

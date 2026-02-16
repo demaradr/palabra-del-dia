@@ -1,0 +1,41 @@
+[
+  {
+    "id": "de:hallo",
+    "source": "Hallo",
+    "target": "hello",
+    "sourceLanguage": "de-DE",
+    "targetLanguage": "en-US",
+    "level": "beginner",
+    "categories": ["social"],
+    "examples": [
+      { "source": "Hallo! Wie geht's?", "target": "Hello! How are you?" },
+      { "source": "Hallo, ich heisse Anna.", "target": "Hello, my name is Anna." }
+    ]
+  },
+  {
+    "id": "de:haus",
+    "source": "Haus",
+    "target": "house",
+    "sourceLanguage": "de-DE",
+    "targetLanguage": "en-US",
+    "level": "beginner",
+    "categories": ["home"],
+    "examples": [
+      { "source": "Das Haus ist gross.", "target": "The house is big." },
+      { "source": "Ich bin zu Hause.", "target": "I am at home." }
+    ]
+  },
+  {
+    "id": "de:wasser",
+    "source": "Wasser",
+    "target": "water",
+    "sourceLanguage": "de-DE",
+    "targetLanguage": "en-US",
+    "level": "beginner",
+    "categories": ["essentials", "food"],
+    "examples": [
+      { "source": "Ein Glas Wasser, bitte.", "target": "A glass of water, please." },
+      { "source": "Das Wasser ist kalt.", "target": "The water is cold." }
+    ]
+  }
+]
